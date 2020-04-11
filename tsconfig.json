@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": ["es2015"],
+    "sourceMap": false,
+    "declaration": false,
+    "allowJs": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,                
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [
+      "node",
+      "reflect-metadata"
+    ],
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
+    "removeComments": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "*.yml",
+    "*.json",
+    "node_modules",
+    "build",
+    "public",
+    "views",
+    "keys",
+    "jest",
+    "scripts",
+    "__tests__",
+    "**/*.spec.ts"
+  ]
+}

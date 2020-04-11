@@ -1,0 +1,15 @@
+{
+  "extends": "tslint-config-airbnb",
+  "linterOptions": {
+    "exclude": [
+       "*/*.json",
+       "*/*.yml"
+    ]
+  },
+  "rules": {
+    "variable-name": false,
+    "max-line-length":false,
+    "no-parameter-reassignment" : false,
+    "import-name": false
+  }
+}
