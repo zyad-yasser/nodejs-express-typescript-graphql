@@ -18,7 +18,7 @@ export const graphql = express_graphql((request: any) => {
     context: {
       errorName,
       request,
-      auth: {},
+      auth: request.auth,
     },
     customFormatErrorFn: (error: GraphQLError) => formatError.getError(error),
   };

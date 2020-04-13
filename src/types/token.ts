@@ -1,6 +1,9 @@
-import { Document } from 'mongoose';
-
-export interface IToken extends Document {
+export interface IToken {
   access: string;
   token: string;
+}
+
+export interface ITokens {
+  authToken: any;
+  refreshToken: any;
 }

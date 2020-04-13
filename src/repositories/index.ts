@@ -1,3 +1,4 @@
-import { CoursesRepository } from './Courses.repository';
+import { CoursesRepository } from './courses.repository';
+import { AuthRepository } from './auth.repository';
 
-export { CoursesRepository };
+export { CoursesRepository, AuthRepository };
