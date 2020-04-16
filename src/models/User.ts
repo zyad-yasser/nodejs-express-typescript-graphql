@@ -15,6 +15,7 @@ const UserSchema: Schema = new Schema(
     updatedAt: Date,
     firstName: String,
     lastName: String,
+    tag: String,
     mobile: String,
     email: {
       type: String,

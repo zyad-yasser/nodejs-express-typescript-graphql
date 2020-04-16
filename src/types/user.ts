@@ -7,6 +7,7 @@ export interface IUser extends Document {
   updatedAt: Date;
   fileName: string;
   lastName: string;
+  tag: string;
   mobile: string;
   email: string;
   photo: string;

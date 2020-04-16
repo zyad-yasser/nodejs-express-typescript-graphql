@@ -4,5 +4,6 @@ import { IToken } from './token';
 import { ILesson } from './lesson';
 import { ICourse } from './course';
 import { IFile } from './file';
+import { ISearchCriteria } from './search-criteria';
 
-export { LogObject, IUser, IToken, ILesson, ICourse, IFile };
+export { LogObject, IUser, IToken, ILesson, ICourse, IFile, ISearchCriteria };

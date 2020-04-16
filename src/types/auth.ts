@@ -17,3 +17,7 @@ export interface AuthData {
   user: IUser;
   tokens: ITokens;
 }
+
+export interface ILogout {
+  isLoggedout: boolean;
+}
