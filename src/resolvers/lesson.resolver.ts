@@ -1,8 +1,8 @@
-import { LessonsService } from '../services';
+import { LessonService } from '../services';
 import { ILesson } from '../types';
 import { createLessonSchema, lessonsByCourseSchema, lessonLikeSchema } from '../validation/lessons.validation';
 import { validate, authorize } from '../middlewares';
-const lessonsService: LessonsService = new LessonsService();
+const lessonService: LessonService = new LessonService();
 
 const liveLessons = async (args, context): Promise<ILesson[]> => {
   try {
@@ -12,7 +12,7 @@ const liveLessons = async (args, context): Promise<ILesson[]> => {
     if (isAuthorized) {
       toSendArgs.user = context.auth.user;
     }
-    const lessons = await lessonsService.getLive(toSendArgs);
+    const lessons = await lessonService.getLive(toSendArgs);
     return lessons;
   } catch {
     const { errorName } = context;
@@ -23,7 +23,7 @@ const liveLessons = async (args, context): Promise<ILesson[]> => {
 const lessonsByCourse = async (args, context): Promise<ILesson[]> => {
   try {
     await validate(args, lessonsByCourseSchema);
-    const lessons = await lessonsService.getByCourse(args);
+    const lessons = await lessonService.getByCourse(args);
     return lessons;
   } catch {
     const { errorName } = context;
@@ -36,7 +36,7 @@ const createLesson = async (args, context): Promise<ILesson> => {
     await authorize(context);
     await validate(args, createLessonSchema);
     const { user } = context.auth;
-    const lesson = await lessonsService.create(args, user);
+    const lesson = await lessonService.create(args, user);
     return lesson;
   } catch {
     const { errorName } = context;
@@ -50,7 +50,7 @@ const like = async (args, context): Promise<any> => {
     await validate(args, lessonLikeSchema);
     const { user } = context.auth;
     const { lesson } = args;
-    const isLiked = await lessonsService.like(lesson, user);
+    const isLiked = await lessonService.like(lesson, user);
     return {
       isLiked,
     };
@@ -66,7 +66,7 @@ const dislike = async (args, context): Promise<any> => {
     await validate(args, lessonLikeSchema);
     const { user } = context.auth;
     const { lesson } = args;
-    const isDisliked = await lessonsService.dislike(lesson, user);
+    const isDisliked = await lessonService.dislike(lesson, user);
     return {
       isDisliked,
     };
@@ -76,7 +76,7 @@ const dislike = async (args, context): Promise<any> => {
   }
 };
 
-export const coursesResolver = {
+export const lessonResolver = {
   like,
   dislike,
   liveLessons,

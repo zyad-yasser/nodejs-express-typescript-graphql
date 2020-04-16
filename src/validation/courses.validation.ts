@@ -29,17 +29,6 @@ export const createCourseSchema = Joi.object({
     .required(),
   description: Joi.string()
     .required(),
-  files: Joi
-    .array()
-    .items(
-      Joi.object({
-        path: Joi.string()
-          .required(),
-        type: Joi.string()
-        .required(),
-      }),
-    )
-    .optional(),
   filters: Joi
     .array()
     .items(
@@ -51,13 +40,6 @@ export const createCourseSchema = Joi.object({
       }),
     )
     .optional(),
-});
-
-export const myCoursesSchema = Joi.object({
-  skip: Joi.string()
-    .required(),
-  limit: Joi.string()
-    .required(),
 });
 
 export const getCourseByIdSchema = Joi.object({

@@ -23,6 +23,7 @@ export interface IUser extends Document {
 export interface IUserModel extends Model<IUser> {
   findByToken(): Promise<IUser>;
   findByEmail(email: string): Promise<void>;
+  findByTag(tag: string): Promise<void>;
   findByFacebookId(): Promise<void>;
   findByCredentials(data: ILogin): Promise<IUser>;
 }

@@ -1,6 +1,5 @@
-import { ICourse, IUser } from '../types';
 import { AuthRepository } from '../repositories';
-import { ILogin, IRegister, AuthData } from '../types/auth';
+import { ILogin, IRegister, AuthData, IUser } from '../types';
 import { User } from '../models';
 import { ITokens } from '../types/token';
 
@@ -8,8 +7,9 @@ export class AuthService {
   private authRepository: AuthRepository = new AuthRepository();
 
   public register = async(data: IRegister): Promise<AuthData> => {
-    const { email } = data;
+    const { email, tag } = data;
     await this.authRepository.checkExistance(email);
+    await this.authRepository.checkTagExistance(tag);
     const newUser = new User(data);
     const user = await this.authRepository.register(newUser);
     const rawtokens: ITokens = await user.generateTokens();

@@ -15,7 +15,7 @@ export const FileSchema: Schema = new Schema(
   },
   { timestamps: true, versionKey: false },
 )
-  .set('autoIndex', false)
-  .index({ _id: 1 }, { sparse: true });
+.set('autoIndex', false)
+.index({ _id: 1 }, { sparse: true });
 
 export const File: Model<IFile> = model<IFile>('File', FileSchema);

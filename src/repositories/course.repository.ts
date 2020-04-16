@@ -2,7 +2,7 @@ import { ICourse, ILesson, ISearchCriteria, IFilter } from '../types';
 import { Course } from '../models/Course';
 import { Lesson } from '../models';
 
-export class CoursesRepository {
+export class CourseRepository {
 
   public myCourses = async(): Promise<ICourse[]> => {
     return Course.find({});

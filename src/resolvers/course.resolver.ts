@@ -1,8 +1,8 @@
-import { CoursesService } from '../services/courses.service';
+import { CourseService } from '../services';
 import { authorize, validate } from '../middlewares';
 import { ICourse } from '../types';
 import { allCoursesSchema, getCourseByIdSchema, createCourseSchema, getCoursesByIdsSchema } from '../validation/courses.validation';
-const coursesService: CoursesService = new CoursesService();
+const courseService: CourseService = new CourseService();
 
 const courses = async (args, context): Promise<ICourse[]> => {
   try {
@@ -13,7 +13,7 @@ const courses = async (args, context): Promise<ICourse[]> => {
       toSendArgs.user = context.auth.user;
     }
     await validate(args, allCoursesSchema);
-    const coursesData = await coursesService.getAllByCriteria(toSendArgs);
+    const coursesData = await courseService.getAllByCriteria(toSendArgs);
     return coursesData;
   } catch {
     const { errorName } = context;
@@ -25,7 +25,7 @@ const courseById = async (args, context): Promise<ICourse> => {
   try {
     await validate(args, getCourseByIdSchema);
     const { id } = args;
-    const coursesData = await coursesService.getOneById(id);
+    const coursesData = await courseService.getOneById(id);
     return coursesData;
   } catch {
     const { errorName } = context;
@@ -36,8 +36,8 @@ const courseById = async (args, context): Promise<ICourse> => {
 const coursesByIds = async (args, context): Promise<ICourse[]> => {
   try {
     await validate(args, getCoursesByIdsSchema);
-    const { courses } = args;
-    const coursesData = await coursesService.getManyByIds(courses);
+    const { ids } = args;
+    const coursesData = await courseService.getManyByIds(ids);
     return coursesData;
   } catch {
     const { errorName } = context;
@@ -49,7 +49,7 @@ const myCourses = async (args, context): Promise<ICourse[]> => {
   try {
     await authorize(context);
     const { courses } = context.auth.user;
-    const coursesData = await coursesService.getManyByIds(courses);
+    const coursesData = await courseService.getManyByIds(courses);
     return coursesData;
   } catch {
     const { errorName } = context;
@@ -62,7 +62,7 @@ const createCourse = async (args, context): Promise<ICourse> => {
     await authorize(context);
     await validate(args, createCourseSchema);
     const { user } = context.auth;
-    const course = await coursesService.create(args, user);
+    const course = await courseService.create(args, user);
     return course;
   } catch {
     const { errorName } = context;
@@ -70,7 +70,7 @@ const createCourse = async (args, context): Promise<ICourse> => {
   }
 };
 
-export const coursesResolver = {
+export const courseResolver = {
   courses,
   myCourses,
   courseById,

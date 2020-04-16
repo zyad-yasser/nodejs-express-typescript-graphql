@@ -6,6 +6,7 @@ export const registerSchema = Joi.object({
     .required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
+  tag: Joi.string().required(),
   password: Joi.string().required(),
 });
 

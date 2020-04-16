@@ -12,14 +12,17 @@ export const LessonSchema: Schema = new Schema(
     dislikes: [String],
     slug: String,
     description: String,
+    order: Number,
     source: String,
     course: {
       type: ObjectId,
       ref: 'Course',
+      default: null,
     },
     user: {
       type: ObjectId,
       ref: 'User',
+      default: null,
     },
     isLive: Boolean,
   },

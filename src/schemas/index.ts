@@ -1,7 +1,9 @@
 import { buildSchema } from 'graphql';
 
 import * as authSchema from './auth.schema';
-import * as coursesSchema from './courses.schema';
+import * as courseSchema from './course.schema';
+import * as lessonSchema from './lesson.schema';
+import * as userSchema from './user.schema';
 
 export const schema: any = buildSchema(
   `
@@ -11,15 +13,21 @@ export const schema: any = buildSchema(
     }
 
     type RootQuery {
-      ${coursesSchema.queries}
+      ${courseSchema.queries}
       ${authSchema.queries}
+      ${lessonSchema.queries}
+      ${userSchema.queries}
     }
 
     type RootMutation {
       ${authSchema.mutations}
-      ${coursesSchema.mutations}
+      ${courseSchema.mutations}
+      ${lessonSchema.mutations}
+      ${userSchema.mutations}
     }
 
     ${authSchema.types}
-    ${coursesSchema.types}
+    ${courseSchema.types}
+    ${lessonSchema.types}
+    ${userSchema.types}
   `);

@@ -21,7 +21,7 @@ const UserSchema: Schema = new Schema(
       type: String,
       unique: true,
     },
-    photo: String,
+    image: String,
     facebookId: String,
     password: String,
     tokens: {
@@ -106,6 +106,17 @@ UserSchema.statics.findByToken = function (token: string, access: string): Promi
     'tokens.token': token,
     'tokens.access': access,
   });
+};
+
+UserSchema.statics.findByTag = async function (tag: string): Promise<void> {
+  try {
+    const user: IUser = await this.findOne({ tag });
+    if (user) {
+      throw new Error('tag already taken');
+    }
+  } catch (error) {
+    throw new Error('error happened');
+  }
 };
 
 UserSchema.methods.removeToken = function (token: string): Promise<IUser> {

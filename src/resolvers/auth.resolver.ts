@@ -1,7 +1,7 @@
 import { authorize, validate } from '../middlewares';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services';
 import { registerSchema, loginSchema } from '../validation/auth.validation';
-import { AuthData, ILogout } from '../types/auth';
+import { AuthData, ILogout } from '../types';
 const authService: AuthService = new AuthService();
 
 const register = async (args, { errorName }): Promise<AuthData> => {

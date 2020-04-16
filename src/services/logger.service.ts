@@ -1,4 +1,4 @@
-import { LogObject } from '../types/logObject';
+import { LogObject } from '../types';
 import { config } from '../config';
 
 export class LoggerService {

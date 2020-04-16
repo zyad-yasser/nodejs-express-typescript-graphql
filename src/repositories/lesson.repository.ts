@@ -2,7 +2,7 @@ import { ILesson } from '../types';
 import { Lesson } from '../models';
 import { IPaginationParams } from '../types/pagination-params';
 
-export class LessonsRepository {
+export class LessonRepository {
   public getLive = async(params: IPaginationParams): Promise<ILesson[]> => {
     const { skip, limit, user } = params;
     const query: any = { course: null, isLive: true };

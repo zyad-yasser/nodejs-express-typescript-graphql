@@ -22,11 +22,4 @@ export const types = `
     authToken: String!
     refreshToken: String!
   }
-
-  type User {
-    firstName: String!
-    lastName: String!
-    email: String!
-    mobile: String!
-  }
 `;

@@ -11,6 +11,10 @@ export class AuthRepository {
     return User.findByEmail(email);
   }
 
+  public checkTagExistance = async(tag: string): Promise<void> => {
+    return User.findByTag(tag);
+  }
+
   public getOneById = async(_id: string): Promise<IUser> => {
     return User.findOne({ _id });
   }
