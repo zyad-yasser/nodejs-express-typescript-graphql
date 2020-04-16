@@ -14,18 +14,18 @@ export const types = `
     course: String!
   }
 
-  type FilesByCourseInput {
+  input FilesByCourseInput {
     skip: Int!
     limit: Int!
     course: String!
   }
 
-  type FilesInput {
+  input FilesInput {
     skip: Int!
     limit: Int!
   }
 
-  type AddFileToCourseInput {
+  input AddFileToCourseInput {
     path: String!
     Type: String!
     course: String!

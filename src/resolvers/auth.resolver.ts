@@ -4,10 +4,14 @@ import { registerSchema, loginSchema } from '../validation/auth.validation';
 import { AuthData, ILogout } from '../types';
 const authService: AuthService = new AuthService();
 
-const register = async (args, { errorName }): Promise<AuthData> => {
+const register = async (args, { errorName, response }): Promise<AuthData> => {
   try {
     await validate(args, registerSchema);
     const authData = await authService.register(args);
+    const { tokens }: any = authData;
+    response
+      .header('Authorization', tokens.authToken)
+      .header('X-Refresh-Token', tokens.refreshToken);
     return authData;
   } catch (error) {
     throw new Error(errorName.EMAIL_EXISTS);
@@ -25,10 +29,14 @@ const me = async (args, context): Promise<AuthData> => {
   }
 };
 
-const login = async (args, { errorName }): Promise<AuthData> => {
+const login = async ({ input }, { response, errorName }): Promise<AuthData> => {
   try {
-    await validate(args, loginSchema);
-    const authData = await authService.login(args);
+    await validate(input, loginSchema);
+    const authData = await authService.login(input);
+    const { tokens }: any = authData;
+    response
+      .header('Authorization', tokens.authToken)
+      .header('X-Refresh-Token', tokens.refreshToken);
     return authData;
   } catch (error) {
     throw new Error(errorName.INVALID_LOGIN);
@@ -38,7 +46,7 @@ const login = async (args, { errorName }): Promise<AuthData> => {
 const logout = async (args, context): Promise<ILogout> => {
   try {
     await authorize(context);
-    const user = context.auth.user;
+    const { user } = context.auth;
     const isLoggedout = await authService.logout(user);
     return {
       isLoggedout,

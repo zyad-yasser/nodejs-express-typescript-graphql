@@ -1,6 +1,6 @@
 export const queries = `
-  login(email: String!, password: String!): AuthData!
-  register(email: String!, password: String!, firstName: String!, lastName: String!): AuthData!
+  login(input: LoginInput!): AuthData!
+  register(input: RegisterInput!): AuthData!
 `;
 
 export const mutations = `
@@ -21,5 +21,17 @@ export const types = `
   type Tokens {
     authToken: String!
     refreshToken: String!
+  }
+
+  input RegisterInput {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
   }
 `;

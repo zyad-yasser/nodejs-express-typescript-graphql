@@ -51,7 +51,7 @@ const myCourses = async (args, context): Promise<ICourse[]> => {
     const { courses } = context.auth.user;
     const coursesData = await courseService.getManyByIds(courses);
     return coursesData;
-  } catch {
+  } catch (error) {
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
   }

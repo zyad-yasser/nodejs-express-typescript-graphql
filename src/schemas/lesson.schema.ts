@@ -31,7 +31,7 @@ export const types = `
     isDisliked: Boolean!
   }
 
-  type CreateLessonInput {
+  input CreateLessonInput {
     name: String!
     duration: Int!
     description: String!

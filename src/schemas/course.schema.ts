@@ -19,7 +19,7 @@ export const types = `
     user: UserSlim!
   }
 
-  type CreateCourseInput {
+  input CreateCourseInput {
     name: String!
     createdAt: String!
     updatedAt: String!
@@ -27,16 +27,21 @@ export const types = `
     user: String!
   }
 
-  type CoursesInput {
+  input CoursesInput {
     search: String
     skip: Int!
     limit: Int!
     sortColumn: String
     sortType: String
-    filters: [Filter!]
+    filters: [FilterInput!]
   }
 
   type Filter {
+    key: String!
+    value: String!
+  }
+
+  input FilterInput {
     key: String!
     value: String!
   }

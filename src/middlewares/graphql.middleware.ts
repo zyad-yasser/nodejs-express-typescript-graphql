@@ -10,7 +10,7 @@ const isDevelopment: boolean = config.isDevelopment;
 const formatError = new FormatError(errorMessages);
 const errorName = formatError.errorName;
 
-export const graphql = express_graphql((request: any) => {
+export const graphql = express_graphql((request: any, response: any) => {
   return {
     schema,
     rootValue,
@@ -18,6 +18,7 @@ export const graphql = express_graphql((request: any) => {
     context: {
       errorName,
       request,
+      response,
       auth: request.auth,
     },
     customFormatErrorFn: (error: GraphQLError) => formatError.getError(error),

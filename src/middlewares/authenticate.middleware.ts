@@ -3,10 +3,11 @@ import { config } from '../config';
 import { User } from '../models';
 
 const setAuth = (isAuthenticated, roleAuthorized, req, next): void => {
-  req.auth = {
-    isAuthenticated,
-    roleAuthorized,
-  };
+  if (!req.auth) {
+    req.auth = {};
+  }
+  req.auth.isAuthenticated = isAuthenticated;
+  req.auth.roleAuthorized = roleAuthorized;
   return next();
 };
 
@@ -71,12 +72,16 @@ export async function authenticate(req, res, next): Promise<void> {
       }
     }
     if (user && tokens) {
+      req.auth = {};
       req.auth.user = user;
       const outputTokes = {
-        authToken: tokens.authToken.token,
-        refreshToken: tokens.refreshToken.token,
+        authToken: tokens.authToken,
+        refreshToken: tokens.refreshToken,
       };
       req.auth.tokens = outputTokes;
+      res
+        .header('Authorization', tokens.authToken)
+        .header('X-Refresh-Token', tokens.refreshToken);
       setAuth(true, true, req, next);
     } else {
       throw new Error('Unauthenticated');
