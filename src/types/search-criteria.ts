@@ -5,6 +5,7 @@ export interface ISearchCriteria {
   sortColumn?: string;
   sortType?: string;
   filters?: IFilter[];
+  user?: string;
 }
 
 export interface IFilter {

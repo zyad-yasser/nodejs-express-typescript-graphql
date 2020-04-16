@@ -1,5 +1,6 @@
-import { ICourse, ILesson, ISearchCriteria } from '../types';
+import { ICourse, ILesson, ISearchCriteria, IUser } from '../types';
 import { CoursesRepository } from '../repositories/courses.repository';
+import { Course } from '../models';
 
 export class CoursesService {
   private coursesRepository: CoursesRepository = new CoursesRepository();
@@ -8,20 +9,21 @@ export class CoursesService {
     return this.coursesRepository.myCourses();
   }
 
-  public getCoursesByCriteria = async(args: ISearchCriteria): Promise<ICourse[]> => {
-    const { filters, skip, limit, search, sortType, sortColumn } = args;
-    return this.coursesRepository.getCoursesByCriteria({ filters, skip, limit, search, sortType, sortColumn });
+  public getAllByCriteria = async(args: ISearchCriteria): Promise<ICourse[]> => {
+    return this.coursesRepository.getAllByCriteria(args);
   }
 
-  public getLiveLessons = async(): Promise<ILesson[]> => {
-    return this.coursesRepository.getLiveLessons();
+  public getOneById = async(id: string): Promise<ICourse> => {
+    return this.coursesRepository.getOneById(id);
   }
 
-  public getCourseById = async(id: string): Promise<ICourse> => {
-    return this.coursesRepository.getCourseById(id);
+  public getManyByIds = async(coursedIds: string[]): Promise<ICourse[]> => {
+    return this.coursesRepository.getManyByIds(coursedIds);
   }
 
-  public getCoursesByIds = async(coursedIds: string[]): Promise<ICourse[]> => {
-    return this.coursesRepository.getCoursesByIds(coursedIds);
+  public create = async(courseData: ICourse, user: IUser): Promise<ICourse> => {
+    courseData.user = user._id;
+    const course: ICourse = new Course(courseData);
+    return this.coursesRepository.create(course);
   }
 }

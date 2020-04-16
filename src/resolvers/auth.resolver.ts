@@ -1,4 +1,3 @@
-import { CoursesService } from '../services/courses.service';
 import { authorize, validate } from '../middlewares';
 import { AuthService } from '../services/auth.service';
 import { registerSchema, loginSchema } from '../validation/auth.validation';

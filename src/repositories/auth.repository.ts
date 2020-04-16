@@ -1,5 +1,5 @@
-import { ICourse, IUser } from '../types';
-import { ILogin, IRegister } from '../types/auth';
+import { IUser } from '../types';
+import { ILogin } from '../types/auth';
 import { User } from '../models';
 
 export class AuthRepository {

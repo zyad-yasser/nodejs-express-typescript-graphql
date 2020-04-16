@@ -9,7 +9,7 @@ export interface ILesson extends Document {
   dislikes: string[];
   slug: string;
   description: string;
-  path: string;
+  source: string;
   course: string;
   isLive: boolean;
   user: string;

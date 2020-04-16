@@ -12,7 +12,7 @@ export const LessonSchema: Schema = new Schema(
     dislikes: [String],
     slug: String,
     description: String,
-    path: String,
+    source: String,
     course: {
       type: ObjectId,
       ref: 'Course',
