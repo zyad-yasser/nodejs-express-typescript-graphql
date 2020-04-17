@@ -3,9 +3,9 @@ import * as Joi from '@hapi/joi';
 export const allCoursesSchema = Joi.object({
   search: Joi.string()
     .optional(),
-  skip: Joi.string()
+  skip: Joi.number()
     .required(),
-  limit: Joi.string()
+  limit: Joi.number()
     .required(),
   sortColumn: Joi.string()
     .optional(),
@@ -29,6 +29,7 @@ export const createCourseSchema = Joi.object({
     .required(),
   description: Joi.string()
     .required(),
+  image: Joi.string().optional(),
   filters: Joi
     .array()
     .items(

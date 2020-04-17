@@ -25,6 +25,7 @@ export const LessonSchema: Schema = new Schema(
       default: null,
     },
     isLive: Boolean,
+    image: String,
   },
   { timestamps: true, versionKey: false },
 )

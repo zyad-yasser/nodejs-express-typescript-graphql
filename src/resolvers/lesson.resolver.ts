@@ -9,9 +9,10 @@ const liveLessons = async (args, context): Promise<ILesson[]> => {
     const isAuthorized = await authorize(context, false);
     // tslint:disable-next-line: prefer-const
     let toSendArgs = args;
-    if (isAuthorized) {
-      toSendArgs.user = context.auth.user;
-    }
+    // This part is for make sute not to get your own data
+    // if (isAuthorized) {
+    //   toSendArgs.user = context.auth.user;
+    // }
     const lessons = await lessonService.getLive(toSendArgs);
     return lessons;
   } catch {
@@ -31,14 +32,14 @@ const lessonsByCourse = async (args, context): Promise<ILesson[]> => {
   }
 };
 
-const createLesson = async (args, context): Promise<ILesson> => {
+const createLesson = async ({ input }, context): Promise<ILesson> => {
   try {
     await authorize(context);
-    await validate(args, createLessonSchema);
+    await validate(input, createLessonSchema);
     const { user } = context.auth;
-    const lesson = await lessonService.create(args, user);
+    const lesson = await lessonService.create(input, user);
     return lesson;
-  } catch {
+  } catch (error) {
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
   }
@@ -54,6 +55,16 @@ const like = async (args, context): Promise<any> => {
     return {
       isLiked,
     };
+  } catch {
+    const { errorName } = context;
+    throw new Error(errorName.GENERAL_ERROR);
+  }
+};
+
+const lesson = async ({ id }, context): Promise<ILesson> => {
+  try {
+    await authorize(context);
+    return lessonService.getOneById(id);
   } catch {
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
@@ -77,6 +88,7 @@ const dislike = async (args, context): Promise<any> => {
 };
 
 export const lessonResolver = {
+  lesson,
   like,
   dislike,
   liveLessons,

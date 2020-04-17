@@ -4,18 +4,19 @@ import { ICourse } from '../types';
 import { allCoursesSchema, getCourseByIdSchema, createCourseSchema, getCoursesByIdsSchema } from '../validation/courses.validation';
 const courseService: CourseService = new CourseService();
 
-const courses = async (args, context): Promise<ICourse[]> => {
+const courses = async ({ input }, context): Promise<ICourse[]> => {
   try {
     const isAuthorized = await authorize(context, false);
+    await validate(input, allCoursesSchema);
     // tslint:disable-next-line: prefer-const
-    let toSendArgs = args;
-    if (isAuthorized) {
-      toSendArgs.user = context.auth.user;
-    }
-    await validate(args, allCoursesSchema);
+    let toSendArgs = input;
+    // if (isAuthorized) {
+    //   toSendArgs.user = context.auth.user;
+    // }
     const coursesData = await courseService.getAllByCriteria(toSendArgs);
     return coursesData;
-  } catch {
+  } catch (err) {
+    console.log(err);
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
   }
@@ -57,14 +58,41 @@ const myCourses = async (args, context): Promise<ICourse[]> => {
   }
 };
 
-const createCourse = async (args, context): Promise<ICourse> => {
+const publishedCourses = async (args, context): Promise<ICourse[]> => {
   try {
     await authorize(context);
-    await validate(args, createCourseSchema);
+    const { _id } = context.auth.user;
+    const coursesData = await courseService.getManyByUser(_id);
+    return coursesData;
+  } catch (error) {
+    const { errorName } = context;
+    throw new Error(errorName.GENERAL_ERROR);
+  }
+};
+
+const buyCourse = async (args, context): Promise<any> => {
+  try {
+    await authorize(context);
+    const { _id } = context.auth.user;
+    const courseId = args.input.course;
+    const isBought: boolean = await courseService.buyCourse(courseId, _id);
+    return {
+      isBought,
+    };
+  } catch (error) {
+    const { errorName } = context;
+    throw new Error(errorName.GENERAL_ERROR);
+  }
+};
+
+const createCourse = async ({ input }, context): Promise<ICourse> => {
+  try {
+    await authorize(context);
+    await validate(input, createCourseSchema);
     const { user } = context.auth;
-    const course = await courseService.create(args, user);
+    const course = await courseService.create(input, user);
     return course;
-  } catch {
+  } catch (error) {
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
   }
@@ -76,4 +104,6 @@ export const courseResolver = {
   courseById,
   coursesByIds,
   createCourse,
+  publishedCourses,
+  buyCourse,
 };

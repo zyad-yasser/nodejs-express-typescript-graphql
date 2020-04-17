@@ -4,6 +4,7 @@ import * as authSchema from './auth.schema';
 import * as courseSchema from './course.schema';
 import * as lessonSchema from './lesson.schema';
 import * as userSchema from './user.schema';
+import * as fileSchema from './file.schema';
 
 export const schema: any = buildSchema(
   `
@@ -17,6 +18,7 @@ export const schema: any = buildSchema(
       ${authSchema.queries}
       ${lessonSchema.queries}
       ${userSchema.queries}
+      ${fileSchema.queries}
     }
 
     type RootMutation {
@@ -24,10 +26,12 @@ export const schema: any = buildSchema(
       ${courseSchema.mutations}
       ${lessonSchema.mutations}
       ${userSchema.mutations}
+      ${fileSchema.mutations}
     }
 
     ${authSchema.types}
     ${courseSchema.types}
     ${lessonSchema.types}
     ${userSchema.types}
+    ${fileSchema.types}
   `);

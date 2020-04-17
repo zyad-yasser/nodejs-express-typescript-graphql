@@ -13,5 +13,5 @@ export interface ICourse extends Document {
 
 export interface IFilter extends Document {
   key: string;
-  value: string;
+  value: any;
 }

@@ -15,6 +15,7 @@ const CourseSchema: Schema = new Schema(
     slug: String,
     name: String,
     filters: [FilterSchema],
+    image: String,
   },
   { timestamps: true, versionKey: false },
 )

@@ -19,6 +19,10 @@ export class LessonRepository {
     return Lesson.find({ course });
   }
 
+  public getOneById = async(_id: string): Promise<ILesson> => {
+    return Lesson.findOne({ _id });
+  }
+
   public like = async(lessonId: string, userId: string): Promise<ILesson> => {
     const lesson = await Lesson.findById(lessonId);
     if (lesson) {

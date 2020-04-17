@@ -7,6 +7,7 @@ export const createLessonSchema = Joi.object({
   isLive: Joi.boolean().required(),
   source: Joi.string().required(),
   course: Joi.string().optional(),
+  image: Joi.string().optional(),
 });
 
 export const lessonsByCourseSchema = Joi.object({

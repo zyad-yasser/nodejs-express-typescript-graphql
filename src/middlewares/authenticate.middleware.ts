@@ -62,10 +62,14 @@ export async function authenticate(req, res, next): Promise<void> {
     } else {
       const decodedObjectFromRefreshToken = await jwtVerifyAndGetDecoded(splittedRefreshToken[1], config.refreshToken.key);
       if (decodedObjectFromRefreshToken) {
-        const { _id } = decodedObjectFromAuthToken;
+        const { _id } = decodedObjectFromRefreshToken;
         user = await getUser(_id, req, next);
         if (user) {
-          tokens = await user.generateTokens(null, splittedRefreshToken[1]);
+          const rawTokens = await user.generateTokens(null, splittedRefreshToken[1]);
+          tokens = {
+            authToken: rawTokens.authToken.token,
+            refreshToken: rawTokens.refreshToken.token,
+          };
         }
       } else {
         throw new Error('Unauthenticated');

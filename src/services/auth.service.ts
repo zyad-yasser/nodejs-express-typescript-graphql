@@ -15,7 +15,7 @@ export class AuthService {
     const rawtokens: ITokens = await user.generateTokens();
     const tokens = {
       authToken: rawtokens.authToken.token,
-      refreshToken: rawtokens.authToken.token,
+      refreshToken: rawtokens.refreshToken.token,
     };
     return { user, tokens };
   }
@@ -25,7 +25,7 @@ export class AuthService {
     const rawtokens: ITokens = await user.generateTokens();
     const tokens = {
       authToken: rawtokens.authToken.token,
-      refreshToken: rawtokens.authToken.token,
+      refreshToken: rawtokens.refreshToken.token,
     };
     return { user, tokens };
   }

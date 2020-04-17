@@ -1,6 +1,6 @@
 export const queries = `
-  filesByCourse(input: FilesByCourseInput!): [Course!]!
-  files(input: FilesInput): Course!
+  filesByCourse(input: FilesByCourseInput!): [File!]!
+  files(input: FilesInput): [File!]!
 `;
 
 export const mutations = `
@@ -9,8 +9,9 @@ export const mutations = `
 
 export const types = `
   type File {
+    _id: String!
     path: String!
-    Type: String!
+    type: String!
     course: String!
   }
 
@@ -27,7 +28,7 @@ export const types = `
 
   input AddFileToCourseInput {
     path: String!
-    Type: String!
+    type: String!
     course: String!
   }
 `;

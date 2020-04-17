@@ -12,6 +12,7 @@ export const mutations = `
 
 export const types = `
   type Lesson {
+    _id: String!
     name: String!
     duration: Int!
     createdAt: String!
@@ -21,6 +22,7 @@ export const types = `
     description: String!
     user: UserSlim
     isLive: Boolean!
+    image: String
   }
 
   type Liked {
@@ -38,5 +40,6 @@ export const types = `
     source: String!
     course: String
     isLive: Boolean!
+    image: String
   }
 `;

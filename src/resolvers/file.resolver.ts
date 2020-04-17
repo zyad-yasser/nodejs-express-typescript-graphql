@@ -16,21 +16,21 @@ const files = async (args, context): Promise<IFile[]> => {
   }
 };
 
-const filesByCourse = async (args, context): Promise<IFile[]> => {
+const filesByCourse = async ({ input }, context): Promise<IFile[]> => {
   try {
-    await validate(args, filesByCourseSchema);
-    const filesData = await fileService.getByCourse(args);
+    await validate(input, filesByCourseSchema);
+    const filesData = await fileService.getByCourse(input);
     return filesData;
-  } catch {
+  } catch (error) {
     const { errorName } = context;
     throw new Error(errorName.GENERAL_ERROR);
   }
 };
 
-const addFileToCourse = async (args, context): Promise<IFile> => {
+const addFileToCourse = async ({ input }, context): Promise<IFile> => {
   try {
-    await validate(args, addFileToCourseSchema);
-    const fileData = await fileService.addToCourse(args);
+    await validate(input, addFileToCourseSchema);
+    const fileData = await fileService.addToCourse(input);
     return fileData;
   } catch {
     const { errorName } = context;

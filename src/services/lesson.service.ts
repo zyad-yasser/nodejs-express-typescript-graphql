@@ -14,6 +14,10 @@ export class LessonService {
     return this.lessonRepository.getLive(params);
   }
 
+  public getOneById = async(lessonId: string): Promise<ILesson> => {
+    return this.lessonRepository.getOneById(lessonId);
+  }
+
   public like = async(lessonId: string, user: IUser): Promise<Boolean> => {
     const userId = user._id;
     const lesson = await this.lessonRepository.like(lessonId, userId);

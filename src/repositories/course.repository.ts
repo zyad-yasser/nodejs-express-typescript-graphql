@@ -17,6 +17,10 @@ export class CourseRepository {
       .populate('user', 'firstName lastName tag');
   }
 
+  public getManyByUser = async(user: string): Promise<ICourse[]> => {
+    return Course.find({ user });
+  }
+
   public getManyByIds = async(coursesIds: string[]): Promise<ICourse[]> => {
     return Course.find({ _id: { $in: coursesIds } });
   }
@@ -58,19 +62,29 @@ export class CourseRepository {
       filters.forEach((filter: IFilter) => {
         // tslint:disable-next-line: prefer-const
         let queryOption = {};
+        const moreQueryOption = {};
         switch (filter.key) {
           case 'from':
-            queryOption['filters.price'] = { $gte: (Number(filter.value) || 0) };
+            queryOption['filters.key'] = 'price';
+            moreQueryOption['filters.value'] = { $gte: (Number(filter.value) || 0) };
             break;
           case 'to':
-            queryOption['filters.price'] = { $lte: (Number(filter.value) || 0) };
+            queryOption['filters.key'] = 'price';
+            moreQueryOption['filters.value'] = { $lte: (Number(filter.value) || 0) };
             break;
           default:
             queryOption[`filters.${filter.key}`] = filter.value;
             break;
         }
         query.$and.push(queryOption);
+        if (Object.keys(moreQueryOption).length > 0) {
+          query.$and.push(moreQueryOption);
+        }
       });
+    }
+
+    if (query.$and.length === 0) {
+      delete query.$and;
     }
 
     return Course.find(query)

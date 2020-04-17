@@ -8,6 +8,7 @@ export const mutations = `
 
 export const types = `
   type UserSlim {
+    _id: String!
     firstName: String!
     lastName: String!
     tag: String!
@@ -15,6 +16,7 @@ export const types = `
   }
 
   type User {
+    _id: String!
     firstName: String!
     lastName: String!
     email: String!
